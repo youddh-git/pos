@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hospisoft.store.dto.StoreDTO;
@@ -26,13 +25,10 @@ import com.hospisoft.store.service.StoreService;
 @RestController
 //@CrossOrigin(origins = "${app.api.settings.cross-origin.urls}")
 @CrossOrigin(origins="*")
-@RequestMapping("/stores")
 public class StoreController {
-
 	@Autowired
 	StoreService storeService;
-	
-	@GetMapping(value = "")
+	@GetMapping(value = "/stores")
 	public ResponseEntity<?> storeList() {
 		try {
 			List<Store> storeList = storeService.stores();
@@ -45,7 +41,7 @@ public class StoreController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	@PostMapping(value = "")
+	@PostMapping(value = "/stores")
 	public  ResponseEntity<?> approvalList(@Valid @RequestBody DataTablesInput dataTablesInput) {
 		try {
 			DataTablesOutput<StoreDTO> storeList = storeService.storesDataTable(dataTablesInput);
@@ -55,7 +51,7 @@ public class StoreController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	@PostMapping(value = "/save")
+	@PostMapping(value = "/stores/save")
 	public ResponseEntity<?> saveStore(@RequestBody Store store) {
 		try {
 			Store storeObject = storeService.saveStore(store);
@@ -68,7 +64,7 @@ public class StoreController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	@DeleteMapping(value = "/delete/{id}")
+	@DeleteMapping(value = "/stores/delete/{id}")
 	public ResponseEntity<?> deleteStore(@PathVariable("id") Integer id) {
 		try {
 			storeService.deleteById(id);			
