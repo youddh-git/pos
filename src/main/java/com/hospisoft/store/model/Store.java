@@ -45,7 +45,7 @@ public class Store {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@Column(name = "created", nullable = false)
+	@Column(name = "created")
 	private Date created;
 
 	public Integer getId() {

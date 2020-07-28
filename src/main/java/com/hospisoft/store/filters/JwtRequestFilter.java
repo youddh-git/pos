@@ -29,12 +29,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
-		System.out.println("JwtRequestFilter.doFilterInternal(******************************)");
-		
-		final String authorizationHeader = request.getHeader("Authorization");
-		System.out.println("++++++++++ authorizationHeade +++++++++++++");
+		System.out.println("JwtRequestFilter.doFilterInternal(******************************)");		
+		final String authorizationHeader = request.getHeader("Authorization");		
+		System.out.println(request.getMethod()+" "+request.getRequestURI());			
 		System.out.println(authorizationHeader);
-
+				
 		String username = null;
 		String jwt = null;
 
@@ -42,20 +41,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 			jwt = authorizationHeader.substring(7);
 			username = jwtUtil.extractUsername(jwt);
 		}
-
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-
 			if (jwtUtil.validateToken(jwt, userDetails)) {
-
-				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-						userDetails, null, userDetails.getAuthorities());
-				usernamePasswordAuthenticationToken
-						.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+				usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 			}
 		}
+		System.out.println("JwtRequestFilter.doFilterInternal()");
 		chain.doFilter(request, response);
 	}
 

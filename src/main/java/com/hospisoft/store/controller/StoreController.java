@@ -10,7 +10,6 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,11 +22,11 @@ import com.hospisoft.store.model.Store;
 import com.hospisoft.store.service.StoreService;
 
 @RestController
-//@CrossOrigin(origins = "${app.api.settings.cross-origin.urls}")
-@CrossOrigin(origins="*")
 public class StoreController {
+	
 	@Autowired
 	StoreService storeService;
+	
 	@GetMapping(value = "/stores")
 	public ResponseEntity<?> storeList() {
 		try {
@@ -41,6 +40,7 @@ public class StoreController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
 	@PostMapping(value = "/stores")
 	public  ResponseEntity<?> approvalList(@Valid @RequestBody DataTablesInput dataTablesInput) {
 		try {
@@ -51,6 +51,7 @@ public class StoreController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
 	@PostMapping(value = "/stores/save")
 	public ResponseEntity<?> saveStore(@RequestBody Store store) {
 		try {
@@ -64,6 +65,7 @@ public class StoreController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
 	@DeleteMapping(value = "/stores/delete/{id}")
 	public ResponseEntity<?> deleteStore(@PathVariable("id") Integer id) {
 		try {

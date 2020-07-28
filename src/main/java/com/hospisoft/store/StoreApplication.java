@@ -7,6 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.datatables.repository.DataTablesRepositoryFactoryBean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+
+
 @SpringBootApplication
 @ComponentScan("com.hospisoft")
 @EnableAutoConfiguration
@@ -14,6 +16,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class StoreApplication {
 
 	public static void main(String[] args) {
+		
+        
 		SpringApplication.run(StoreApplication.class, args);
 	}
 
