@@ -1,4 +1,4 @@
-package com.hospisoft.store.controller;
+package com.hospisoft.store.filters;
 
 import java.io.IOException;
 
